@@ -31,13 +31,13 @@ contract Election
     event ElectResults(string name, uint voteCount);
 
     constructor() {
-        // startTime = block.timestamp;
+        startTime = block.timestamp;
         chairperson = msg.sender;
     }
 
     function addCandidate(uint candidateId) public payable //timerOver
     {   
-        require(block.timestamp <= startTime + 990, "Time exceeded for registring. Let them Vote!");
+        // require(block.timestamp <= startTime + 990, "Time exceeded for registring. Let them Vote!");
         //require messages are too long, they add to code size
       
 
@@ -47,8 +47,8 @@ contract Election
 
     function authorize (address voter) public payable
     {
-        require(msg.sender == chairperson);
-        require(!voters[voter].voted);
+        require(msg.sender == chairperson, "Chairman must authorize only");
+        require(!voters[voter].voted, "Address has voted");
 
         voters[voter].weight = 1; //only count people we authorize withe weight of one;
 
@@ -66,8 +66,8 @@ contract Election
 
     function voteCandidate(uint voteIndex) public //timerOver1
     {
-             require(block.timestamp > startTime + 990, "Time not exceeded for registering");
-             require(block.timestamp <= startTime + 1345, "Time exceeded for voting. View results");
+            //  require(block.timestamp > startTime + 990, "Time not exceeded for registering");
+            //  require(block.timestamp <= startTime + 1345, "Time exceeded for voting. View results");
 
             require(!voters[msg.sender].voted, "Has already voted");
             require(voters[msg.sender].weight != 0, "Has no right to vote");

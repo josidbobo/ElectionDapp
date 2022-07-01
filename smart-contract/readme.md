@@ -12,6 +12,5 @@ Create a smart contract for a voting application. In this application, allow a p
   "0x1aE0EA34a72D944a8C7603FfB3eC30a6669E454C",
 ];
 ```
-
-Deploy command: npx hardhat run scripts/deploy.js --network goerli
-contract address : 0x4010288DB00EA98884Aef518929fab00c75d44c5
+## contract address
+Goerli : 0x42E1E7DeA036C03C21Ad8A0106207A2247216fB9

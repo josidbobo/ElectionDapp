@@ -1,6 +1,7 @@
 import './App.css';
 import {useEffect, useState} from 'react';
 import election from './artifacts/election.json';
+import { ethers } from 'ethers';
 
 function App() {
   const [result, setResult] = useState(0);
@@ -10,7 +11,7 @@ function App() {
   const [connectedWallet, setConnectedWallet] = useState("");
 
   //web3 variables
-  const contractAddress = "0x4010288DB00EA98884Aef518929fab00c75d44c5";
+  const contractAddress = "0x42E1E7DeA036C03C21Ad8A0106207A2247216fB9";
   const ContractAbi = election.abi;
 
   //web3 stuffs
@@ -29,9 +30,62 @@ function App() {
     }
   };
 
+  //web3 functions
+  const addCandidate = async candidateId => {
+    try{
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const signer = provider.getSigner();
+        const contract = new ethers.Contract(contractAddress, ContractAbi, signer);
+        const tx = await contract.addCandidate(candidateId);
+        tx.wait();
+        alert("Candidate added!");
+    }catch(e){ 
+      console.log(e.message);
+    }
+  }
+
+  const getCandidateNumber = async () => {
+    try{
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const signer = provider.getSigner();
+        const contract = new ethers.Contract(contractAddress, ContractAbi, signer);
+        const outcome = await contract.getCandidateCount();
+        setResult(outcome.toString());
+        console.log(outcome.toString());
+    }catch(e){ 
+      console.log(e.message);
+    }
+  }
+
+  const getVotersWeight = async (voterAddress) => {
+    try{
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const signer = provider.getSigner();
+      const contract = new ethers.Contract(contractAddress, ContractAbi, signer);
+      const outcome = await contract.getVotersWeight(voterAddress);
+      setResult(outcome.toString());
+      console.log(outcome.toString());
+  }catch(e){ 
+    console.log(e.message);
+  }
+}
+
+const authorization = async (voterAddress) => {
+  try{
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+    const contract = new ethers.Contract(contractAddress, ContractAbi, signer);
+    await contract.authorize(voterAddress);
+    alert(`${voterAddress} authorized`);
+  }catch(e){ 
+    console.log(e.message);
+  }
+}
+    
+
   // useEffect runs asynchronously and listens to the `[]` bracket and reruns when it variable changes.
   // as well as first time the component mounts
-  useEffect(() => {
+  useEffect(() => { 
     checkWalletConnection();
   }, [isWalletConnected]);
 
@@ -39,27 +93,25 @@ function App() {
 
   //web 2 functions
   const handleAddCandidate = (e) => {
-
+    addCandidate(candidateId);
   };
   const handleAuthorize = (e) => {
-
+    authorization(voterAddress);
   };
   const handleVote = (e) => {
 
   };
   const getCandidateCount = (e) => {
-
+    getCandidateNumber();
   };
   const getVoterWeight = (e) => {
-
+    getVotersWeight(voterAddress); 
   };
   const handleChangeVotersAddress = (e) => {
     setVoterAddress(e.target.value);
-    setResult(e.target.value);
   }
   const handleChangeCandidateId = (e) => {
     setCandidateId(e.target.value);
-    setResult(e.target.value);
   }
 
 
