@@ -9,6 +9,7 @@ function App() {
   const [voterAddress, setVoterAddress] = useState("");
   const [isWalletConnected, setWalletConnected] = useState(false);
   const [connectedWallet, setConnectedWallet] = useState("");
+  const [voteIndex, setVoteIndex] = useState(0);
 
   //web3 variables
   const contractAddress = "0x42E1E7DeA036C03C21Ad8A0106207A2247216fB9";
@@ -77,8 +78,20 @@ const authorization = async (voterAddress) => {
     const contract = new ethers.Contract(contractAddress, ContractAbi, signer);
     await contract.authorize(voterAddress);
     alert(`${voterAddress} authorized`);
-  }catch(e){ 
-    console.log(e.message);
+  }catch(e){
+    console.log(e);
+  }
+}
+
+const Voting = async (voteIndex) => {
+  try{
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+    const contract = new ethers.Contract(contractAddress, ContractAbi, signer);
+    await contract.voteCandidate(voteIndex);
+    alert(`Voting successful`);
+  }catch(e){
+    alert(e.message);
   }
 }
     
@@ -99,7 +112,8 @@ const authorization = async (voterAddress) => {
     authorization(voterAddress);
   };
   const handleVote = (e) => {
-
+    setVoteIndex(e.target.value);
+    Voting(voteIndex);
   };
   const getCandidateCount = (e) => {
     getCandidateNumber();
@@ -141,7 +155,7 @@ const authorization = async (voterAddress) => {
       <section style={{marginTop: "30px"}}>
         <span>Vote</span>
         <br/>
-        <input type={"string"} placeholder="Candidate's Id"></input>
+        <input type={"number"} placeholder="Candidate's Id"></input>
         <br></br>
         <button style={{backgroundColor: "green", borderColor: "green"}} onClick={(e) => handleVote(e)}>Vote</button>
       </section>
