@@ -2,11 +2,11 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "C:\\Users\\OKORO JOSHUA\\Desktop\\Election\\smart-contract\\contracts\\Election.sol": {
-      "lastModificationDate": 1656655271869,
-      "contentHash": "4f3e717875a7b6213a9d9afc04afa12e",
+      "lastModificationDate": 1656763254308,
+      "contentHash": "27b7b1fc704a946ec02090586e6f310a",
       "sourceName": "contracts/Election.sol",
       "solcConfig": {
-        "version": "0.8.4",
+        "version": "0.8.7",
         "settings": {
           "optimizer": {
             "enabled": false,
@@ -29,21 +29,21 @@
         }
       },
       "imports": [
-        "hardhat/console.sol"
+        "./IVotingContract.sol"
       ],
       "versionPragmas": [
-        "^0.8.0"
+        "=0.8.7"
       ],
       "artifacts": [
-        "Election"
+        "MyVotingApp"
       ]
     },
-    "C:\\Users\\OKORO JOSHUA\\Desktop\\Election\\node_modules\\hardhat\\console.sol": {
-      "lastModificationDate": 1656010270961,
-      "contentHash": "cc4777addd464ea56fa35b1c45df0591",
-      "sourceName": "hardhat/console.sol",
+    "C:\\Users\\OKORO JOSHUA\\Desktop\\Election\\smart-contract\\contracts\\IVotingContract.sol": {
+      "lastModificationDate": 1656763219466,
+      "contentHash": "da9841c4ba4fe5f3ee28b471b3bc2cfb",
+      "sourceName": "contracts/IVotingContract.sol",
       "solcConfig": {
-        "version": "0.8.4",
+        "version": "0.8.7",
         "settings": {
           "optimizer": {
             "enabled": false,
@@ -67,10 +67,10 @@
       },
       "imports": [],
       "versionPragmas": [
-        ">=0.4.22 <0.9.0"
+        "=0.8.7"
       ],
       "artifacts": [
-        "console"
+        "IVotingContract"
       ]
     }
   }

@@ -1,5 +1,5 @@
 const main = async () => {
-  const ElectionContract = await ethers.getContractFactory("Election");
+  const ElectionContract = await ethers.getContractFactory("MyVotingApp");
   const [deployer] = await ethers.getSigners();
   const ElectionInstance = await ElectionContract.deploy();
   console.log('Deployer is: ', deployer.address);

@@ -1,6 +1,6 @@
 import './App.css';
 import {useEffect, useState} from 'react';
-import election from './artifacts/election.json';
+import election from './artifacts/contracts/Election.sol/MyVotingApp.json';
 import { ethers } from 'ethers';
 
 function App() {
@@ -12,7 +12,7 @@ function App() {
   const [voteIndex, setVoteIndex] = useState(0);
 
   //web3 variables
-  const contractAddress = "0x42E1E7DeA036C03C21Ad8A0106207A2247216fB9";
+  const contractAddress = "0xB86323e419BE43cF291eac40D4aea3E524F51035";
   const ContractAbi = election.abi;
 
   //web3 stuffs

@@ -27,7 +27,7 @@ describe("Election", function () {
   // time. It receives a callback, which can be async.
   beforeEach(async function () {
     // Get the ContractFactory and Signers here.
-    Election = await ethers.getContractFactory("Election");
+    Election = await ethers.getContractFactory("MyVotingApp");
     [deployer, addr1] = await ethers.getSigners();
 
     // To deploy our contract, we just have to call Token.deploy() and await
@@ -58,11 +58,9 @@ describe("Election", function () {
   });
 
   describe("test the contracts transactions", function () {
-    it("should authorize an address", async function () {
-      expect(await ElectionInstance.getVotersWeight(addr1.address)).to.equal(0);
-      const authorize = await ElectionInstance.authorize(addr1.address);
-      await authorize;
-      expect(await ElectionInstance.getVotersWeight(addr1.address)).to.equal(1);
+    it("should be able to change chairperson", async function () {
+      await ElectionInstance.connect(deployer).changeChairperson(addr1.address);
+      expect(await ElectionInstance.chairperson()).to.equal(addr1.address);
     });
   });
 
